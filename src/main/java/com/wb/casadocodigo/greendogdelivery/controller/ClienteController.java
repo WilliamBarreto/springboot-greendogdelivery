@@ -49,14 +49,15 @@ public class ClienteController {
 		cliente = this.repository.save(cliente);
 		redirectAttributes.addFlashAttribute("globalMessage","Cliente gravado com sucesso!");
 
-		return new ModelAndView("redirect:/"+"clientes"+"{cliente.id}","cliente.id",cliente.getId()); 
+		return new ModelAndView("redirect:/"+"clientes/"+"{cliente.id}","cliente.id", cliente.getId()); 
 	}
 	
-	@GetMapping(value="alterar/id")
+	@GetMapping(value="alterar/{id}")
 	public ModelAndView alterarForm(@PathVariable("id") Cliente cliente) {
 		return new ModelAndView("clientes/form", "cliente", cliente);
 	}
 	
+	@GetMapping(value="remover/{id}")
 	public ModelAndView remover(@PathVariable("id") Long id,RedirectAttributes redirect) {
 		this.repository.delete(id);
 		Iterable<Cliente> clientes = repository.findAll();
